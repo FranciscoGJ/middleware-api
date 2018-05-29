@@ -3,9 +3,6 @@ title: API Reference
 
 language_tabs: # must be one of https://git.io/vQNgJ
   - shell
-  - ruby
-  - python
-  - javascript
 
 toc_footers:
   - <a href='#'>Sign Up for a Developer Key</a>
@@ -17,223 +14,522 @@ includes:
 search: true
 ---
 
-# Introduction
+# Introducción
 
-Welcome to the Kittn API! You can use our API to access Kittn API endpoints, which can get information on various cats, kittens, and breeds in our database.
+La presente documentación hace referencia a la API del middleware IoT perteneciente al taller profesional.
 
-We have language bindings in Shell, Ruby, and Python! You can view code examples in the dark area to the right, and you can switch the programming language of the examples with the tabs in the top right.
+# Groups
 
-This example API documentation page was created with [Slate](https://github.com/lord/slate). Feel free to edit it and use it as a base for your own API's documentation.
-
-# Authentication
-
-> To authorize, use this code:
-
-```ruby
-require 'kittn'
-
-api = Kittn::APIClient.authorize!('meowmeowmeow')
-```
-
-```python
-import kittn
-
-api = kittn.authorize('meowmeowmeow')
-```
+## Obtener todos los grupos
 
 ```shell
-# With shell, you can just pass the correct header with each request
-curl "api_endpoint_here"
-  -H "Authorization: meowmeowmeow"
+curl "http://localhos:3000/api/v1/groups"
 ```
 
-```javascript
-const kittn = require('kittn');
-
-let api = kittn.authorize('meowmeowmeow');
-```
-
-> Make sure to replace `meowmeowmeow` with your API key.
-
-Kittn uses API keys to allow access to the API. You can register a new Kittn API key at our [developer portal](http://example.com/developers).
-
-Kittn expects for the API key to be included in all API requests to the server in a header that looks like the following:
-
-`Authorization: meowmeowmeow`
-
-<aside class="notice">
-You must replace <code>meowmeowmeow</code> with your personal API key.
-</aside>
-
-# Kittens
-
-## Get All Kittens
-
-```ruby
-require 'kittn'
-
-api = Kittn::APIClient.authorize!('meowmeowmeow')
-api.kittens.get
-```
-
-```python
-import kittn
-
-api = kittn.authorize('meowmeowmeow')
-api.kittens.get()
-```
-
-```shell
-curl "http://example.com/api/kittens"
-  -H "Authorization: meowmeowmeow"
-```
-
-```javascript
-const kittn = require('kittn');
-
-let api = kittn.authorize('meowmeowmeow');
-let kittens = api.kittens.get();
-```
-
-> The above command returns JSON structured like this:
-
-```json
-[
-  {
-    "id": 1,
-    "name": "Fluffums",
-    "breed": "calico",
-    "fluffiness": 6,
-    "cuteness": 7
-  },
-  {
-    "id": 2,
-    "name": "Max",
-    "breed": "unknown",
-    "fluffiness": 5,
-    "cuteness": 10
-  }
-]
-```
-
-This endpoint retrieves all kittens.
-
-### HTTP Request
-
-`GET http://example.com/api/kittens`
-
-### Query Parameters
-
-Parameter | Default | Description
---------- | ------- | -----------
-include_cats | false | If set to true, the result will also include cats.
-available | true | If set to false, the result will include kittens that have already been adopted.
-
-<aside class="success">
-Remember — a happy kitten is an authenticated kitten!
-</aside>
-
-## Get a Specific Kitten
-
-```ruby
-require 'kittn'
-
-api = Kittn::APIClient.authorize!('meowmeowmeow')
-api.kittens.get(2)
-```
-
-```python
-import kittn
-
-api = kittn.authorize('meowmeowmeow')
-api.kittens.get(2)
-```
-
-```shell
-curl "http://example.com/api/kittens/2"
-  -H "Authorization: meowmeowmeow"
-```
-
-```javascript
-const kittn = require('kittn');
-
-let api = kittn.authorize('meowmeowmeow');
-let max = api.kittens.get(2);
-```
-
-> The above command returns JSON structured like this:
+> El comando anterior retorna un JSON con la siguiente estructura
 
 ```json
 {
-  "id": 2,
-  "name": "Max",
-  "breed": "unknown",
-  "fluffiness": 5,
-  "cuteness": 10
+    "succes": {
+        "status": 200
+    },
+    "data": [
+        {
+            "id": 1,
+            "name": "Sala de reuniones",
+            "description": "Sala ubicada en el primer piso",
+            "created_at": "2018-05-18T09:02:37.418Z",
+            "updated_at": "2018-05-18T09:02:37.418Z"
+        },
+        {
+            "id": 2,
+            "name": "Sala de reuniones",
+            "description": "Sala ubicada en el primer piso",
+            "created_at": "2018-05-23T19:50:57.185Z",
+            "updated_at": "2018-05-23T19:50:57.185Z"
+        }
+    ]
 }
 ```
 
-This endpoint retrieves a specific kitten.
-
-<aside class="warning">Inside HTML code blocks like this one, you can't use Markdown, so use <code>&lt;code&gt;</code> blocks to denote code.</aside>
+Esta llamada permite obtener el listado de todos los grupos
 
 ### HTTP Request
 
-`GET http://example.com/kittens/<ID>`
+`GET http://localhos:3000/api/v1/groups`
 
-### URL Parameters
 
-Parameter | Description
---------- | -----------
-ID | The ID of the kitten to retrieve
-
-## Delete a Specific Kitten
-
-```ruby
-require 'kittn'
-
-api = Kittn::APIClient.authorize!('meowmeowmeow')
-api.kittens.delete(2)
-```
-
-```python
-import kittn
-
-api = kittn.authorize('meowmeowmeow')
-api.kittens.delete(2)
-```
+## Obtener un grupo en especifico
 
 ```shell
-curl "http://example.com/api/kittens/2"
-  -X DELETE
-  -H "Authorization: meowmeowmeow"
+curl "http://localhos:3000/api/v1/groups/1"
 ```
 
-```javascript
-const kittn = require('kittn');
-
-let api = kittn.authorize('meowmeowmeow');
-let max = api.kittens.delete(2);
-```
-
-> The above command returns JSON structured like this:
+> El comando anterior retorna un JSON con la siguiente estructura
 
 ```json
 {
-  "id": 2,
-  "deleted" : ":("
+    "succes": {
+        "status": 200
+    },
+    "data": {
+        "group": {
+            "id": 1,
+            "name": "Sala de reuniones",
+            "description": "Sala ubicada en el primer piso",
+            "created_at": "2018-05-18T09:02:37.418Z",
+            "updated_at": "2018-05-18T09:02:37.418Z"
+        },
+        "nodes": [
+            {
+                "id": 1,
+                "modelName": "pysense",
+                "manufacterName": "pycom",
+                "description": "sensor",
+                "group_id": 1,
+                "created_at": "2018-05-18T09:02:40.195Z",
+                "updated_at": "2018-05-18T09:02:40.195Z"
+            },
+            {
+                "id": 2,
+                "modelName": "pysense",
+                "manufacterName": "pycom",
+                "description": "sensor",
+                "group_id": 1,
+                "created_at": "2018-05-18T09:03:29.664Z",
+                "updated_at": "2018-05-18T09:03:29.664Z"
+            }
+        ]
+    }
 }
 ```
 
-This endpoint deletes a specific kitten.
+Esta llamada retorna la información especifica de un groupo. Además muestra todos los nodos asociados a este.
 
 ### HTTP Request
 
-`DELETE http://example.com/kittens/<ID>`
+`GET http://localhos:3000/api/v1/groups/<ID>`
 
-### URL Parameters
+### Parametros URL
 
-Parameter | Description
+Parametro | Descripción
 --------- | -----------
-ID | The ID of the kitten to delete
+ID | ID del grupo a retornar
 
+## Crear un grupo
+
+```shell
+curl -X POST \
+  http://localhost:3000/api/v1/groups \
+  -H 'Content-Type: application/json' \
+  -d '{
+	"name": "Sala de reuniones",
+	"description": "Sala ubicada en el primer piso"
+}'
+```
+
+> El comando anterior retorna un JSON con la siguiente estructura
+
+```json
+{
+    "succes": {
+        "status": 201,
+        "message": "Grupo creado"
+    },
+    "data": {
+        "id": 2,
+        "name": "Sala de reuniones",
+        "description": "Sala ubicada en el primer piso",
+        "created_at": "2018-05-23T19:50:57.185Z",
+        "updated_at": "2018-05-23T19:50:57.185Z"
+    }
+}
+```
+
+Este request permite crear un grupo en especifico.
+
+### HTTP Request
+
+`POST http://localhost:3000/api/v1/groups`
+
+### Parametros URL
+
+Parametros | Descripción
+--------- | -----------
+name | nombre del grupo
+description | descripción del grupo
+
+# Nodes
+
+## Obtener todos los nodos
+
+```shell
+curl GET \
+  http://localhost:3000/api/v1/nodes
+```
+
+> El comando anterior retorna un JSON con la siguiente estructura
+
+```json
+{
+    "succes": {
+        "status": 200
+    },
+    "data": [
+        {
+            "id": 1,
+            "modelName": "pysense",
+            "manufacterName": "pycom",
+            "description": "sensor",
+            "group_id": 1,
+            "created_at": "2018-05-18T09:02:40.195Z",
+            "updated_at": "2018-05-18T09:02:40.195Z"
+        },
+        {
+            "id": 2,
+            "modelName": "pysense",
+            "manufacterName": "pycom",
+            "description": "sensor",
+            "group_id": 1,
+            "created_at": "2018-05-18T09:03:29.664Z",
+            "updated_at": "2018-05-18T09:03:29.664Z"
+        }
+    ]
+}
+```
+
+Esta llamada permite obtener el listado de todos los nodos pertenecientes al sistema.
+
+### HTTP Request
+
+`GET http://localhos:3000/api/v1/nodes`
+
+## Obtener un nodo en especifico
+
+```shell
+curl "http://localhos:3000/api/v1/nodes/5"
+```
+
+> El comando anterior retorna un JSON con la siguiente estructura
+
+```json
+{
+    "succes": {
+        "status": 200
+    },
+    "data": {
+        "node": {
+            "id": 5,
+            "modelName": "pysense",
+            "manufacterName": "pycom",
+            "description": "sensor",
+            "group_id": 1,
+            "created_at": "2018-05-18T09:21:54.471Z",
+            "updated_at": "2018-05-18T09:21:54.471Z"
+        },
+        "sensors": [
+            {
+                "id": 1,
+                "name": "temperature",
+                "description": "sensor que permite medir temperatura",
+                "units": "Cº",
+                "created_at": "2018-05-18T09:17:39.624Z",
+                "updated_at": "2018-05-18T09:17:39.624Z"
+            },
+            {
+                "id": 2,
+                "name": "humidity",
+                "description": "sensor de humedad",
+                "units": "%",
+                "created_at": "2018-05-18T09:18:08.022Z",
+                "updated_at": "2018-05-18T09:18:08.022Z"
+            }
+        ]
+    }
+}
+```
+Esta llamada retorna la infromación de un nodo en especifico. Además se adjunta un listado de sensores que soporta.
+
+### HTTP Request
+
+`GET http://localhos:3000/api/v1/nodes/<ID>`
+
+### Parametros URL
+
+Parametro | Descripción
+--------- | -----------
+ID | ID del nodo a retornar
+
+## Crear un Nodo
+
+```shell
+curl -X POST \
+  http://localhost:3000/api/v1/nodes \
+  -H 'Cache-Control: no-cache' \
+  -H 'Content-Type: application/json' \
+  -H 'Postman-Token: e32ec4f9-7286-43cd-96e0-86917df80054' \
+  -d '{
+	"modelName": "pysense",
+	"manufacterName": "pycom",
+	"description": "sensor",
+	"group_id": 1,
+	"sensors":[{"name":"temperature"},{"name":"humidity"}]
+	
+}'
+```
+
+> El comando anterior retorna un JSON con la siguiente estructura
+
+```json
+{
+    "succes": {
+        "status": 201,
+        "message": "Nodo creado"
+    },
+    "data": {
+        "id": 1,
+        "modelName": "pysense",
+        "manufacterName": "pycom",
+        "description": "sensor",
+        "group_id": 1,
+        "created_at": "2018-05-24T06:17:13.257Z",
+        "updated_at": "2018-05-24T06:17:13.257Z"
+    }
+}
+```
+
+Esta llamada permite crear un nodo asociado a un grupo y sensores especificos.
+
+### HTTP Request
+
+`POST http://localhos:3000/api/v1/nodes`
+
+### Parametros URL
+
+Parametro | Descripción
+--------- | -----------
+modelName | modelo del nodo
+manufacterName | nombre del desarrollador
+description | descripción del nodo
+group_id | ID del grupo al cual pertenece
+sensors | arreglo de nodos asociados
+
+-------------------------------------------------
+# Sensors
+
+## Obtener todos los sensores
+
+```shell
+curl GET \
+  http://localhost:3000/api/v1/sensors
+```
+
+> El comando anterior retorna un JSON con la siguiente estructura
+
+```json
+{
+    "succes": {
+        "status": 200
+    },
+    "data": [
+        {
+          "id": 1,
+          "name": "temperature",
+          "description": "sensor que permite medir temperatura",
+          "units": "Cº",
+          "created_at": "2018-05-18T09:17:39.624Z",
+          "updated_at": "2018-05-18T09:17:39.624Z"
+        },
+        {
+          "id": 2,
+          "name": "humidity",
+          "description": "sensor de humedad",
+          "units": "%",
+          "created_at": "2018-05-18T09:18:08.022Z",
+          "updated_at": "2018-05-18T09:18:08.022Z"
+        }
+    ]
+}
+```
+
+Esta llamada permite obtener el listado de todos los sensores pertenecientes al sistema.
+
+### HTTP Request
+
+`GET http://localhos:3000/api/v1/sensors`
+
+## Obtener un sensor en especifico
+
+```shell
+curl "http://localhos:3000/api/v1/sensors/1"
+```
+
+> El comando anterior retorna un JSON con la siguiente estructura
+
+```json
+{
+    "succes": {
+        "status": 200
+    },
+    "data": {
+        "sensor": {
+            "id": 1,
+            "name": "temperature",
+            "description": "sensor que permite medir temperatura",
+            "units": "Cº",
+            "created_at": "2018-05-18T09:17:39.624Z",
+            "updated_at": "2018-05-18T09:17:39.624Z"
+        }
+    }
+}
+```
+Esta llamada retorna la infromación de un sensor en especifico.
+
+### HTTP Request
+
+`GET http://localhos:3000/api/v1/sensors/<ID>`
+
+### Parametros URL
+
+Parametro | Descripción
+--------- | -----------
+ID | ID del sensor a retornar
+
+## Crear un sensor
+
+```shell
+curl -X POST \
+  http://localhost:3000/api/v1/sensors \
+  -H 'Cache-Control: no-cache' \
+  -H 'Content-Type: application/json' \
+  -H 'Postman-Token: 2d106a27-37de-4a08-a133-b67fee68f145' \
+  -d '{
+	"name": "humidity",
+	"description": "sensor de humedad",
+	"units": "%"
+}'
+```
+
+> El comando anterior retorna un JSON con la siguiente estructura
+
+```json
+{
+    "succes": {
+        "status": 201,
+        "message": "Sensor creado"
+    },
+    "data": {
+        "id": 5,
+        "name": "humidity",
+        "description": "sensor de humedad",
+        "units": "%",
+        "created_at": "2018-05-24T06:13:39.780Z",
+        "updated_at": "2018-05-24T06:13:39.780Z"
+    }
+}
+```
+
+Esta llamada permite crear un sensor especifico.
+
+### HTTP Request
+
+`POST http://localhos:3000/api/v1/sensors`
+
+### Parametros URL
+
+Parametro | Descripción
+--------- | -----------
+name | nombre del sensor
+description | descripción del sensor
+unit| unidad de medida sensor
+
+# Measures
+
+## Obtener todas las mediciones
+
+```shell
+curl GET \
+  http://localhost:3000/api/v1/measures
+```
+
+> El comando anterior retorna un JSON con la siguiente estructura
+
+```json
+{
+    "succes": {
+        "status": 200
+    },
+    "data": [
+        {
+            "id": 1,
+            "data": 24.4,
+            "unit": "Cº",
+            "node_id": 5,
+            "sensor_id": 1,
+            "created_at": "2018-05-18T09:52:32.342Z",
+            "updated_at": "2018-05-18T09:52:32.342Z"
+        }
+    ]
+}
+```
+
+Esta llamada permite obtener el listado de todas las mediciones pertenecientes al sistema.
+
+### HTTP Request
+
+`GET http://localhos:3000/api/v1/measures`
+
+## Obtener una medición en especifica
+
+```shell
+curl "http://localhos:3000/api/v1/measures/1"
+```
+
+> El comando anterior retorna un JSON con la siguiente estructura
+
+```json
+{
+    "succes": {
+        "status": 200
+    },
+    "data": {
+        "measure": {
+            "id": 1,
+            "data": 24.4,
+            "unit": "Cº",
+            "node_id": 5,
+            "sensor_id": 1,
+            "created_at": "2018-05-18T09:52:32.342Z",
+            "updated_at": "2018-05-18T09:52:32.342Z"
+        },
+        "node": {
+            "id": 5,
+            "modelName": "pysense",
+            "manufacterName": "pycom",
+            "description": "sensor",
+            "group_id": 1,
+            "created_at": "2018-05-18T09:21:54.471Z",
+            "updated_at": "2018-05-18T09:21:54.471Z"
+        },
+        "sensor": {
+            "id": 1,
+            "name": "temperature",
+            "description": "sensor que permite medir temperatura",
+            "units": "Cº",
+            "created_at": "2018-05-18T09:17:39.624Z",
+            "updated_at": "2018-05-18T09:17:39.624Z"
+        }
+    }
+}
+```
+Esta llamada retorna la infromación de un sensor en especifico.
+
+### HTTP Request
+
+`GET http://localhos:3000/api/v1/measures/<ID>`
+
+### Parametros URL
+
+Parametro | Descripción
+--------- | -----------
+ID | ID de la medición a retornar
